@@ -1,22 +1,22 @@
 rm(list=ls())
 
-install.packages("rgeos")
+library(tidyverse)
 library(ggrepel)
 library(ggplot2)
 library(memisc)
 library(assertthat)
 library(sqldf)
 library(magrittr)
-library(dplyr)
 library(reshape2)
 library(oz)
 library(scatterpie)
 library(rgdal)
 library(maptools)
 library(sf)
-library(plyr)
 library(rnaturalearth)
 library(rgeos)
+
+
 
 ############### Formulas
 
@@ -60,17 +60,18 @@ north.america <- worldmap[worldmap$continent == 'North America',]
 
 ggplot() + geom_sf(data = north.america) + theme_bw()
 
-na_cropped <- st_crop(worldmap, xmin = -140, xmax = -110,
+na_cropped <- st_crop(north.america, xmin = -140, xmax = -110,
                       ymin = 20, ymax = 60)
 
 ggplot() + geom_sf(data = na_cropped) + theme_bw()
-
 
 mapplot1 <- ggplot() + geom_sf(data = na_cropped) + theme_bw() + 
   geom_scatterpie(aes(x=Long, y=Lat, group = locality, r = 0.5), 
                   data = final_data, cols = colnames(final_data[,c(2:15)]))
 
-####Need to figgure out how to prevent the points from overtopping - repel? 
+mapplot1
+
+####Need to figure out how to prevent the points from overtopping - repel? 
 
 
 ###### Crappy way to do this####
