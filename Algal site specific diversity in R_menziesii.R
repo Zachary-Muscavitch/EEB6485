@@ -65,8 +65,10 @@ na_cropped <- st_crop(north.america, xmin = -140, xmax = -110,
 
 ggplot() + geom_sf(data = na_cropped) + theme_bw()
 
+### size of the pie chart reflects the total number of observations by site
+
 mapplot1 <- ggplot() + geom_sf(data = na_cropped) + theme_bw() + 
-  geom_scatterpie(aes(x=Long, y=Lat, group = locality, r = 0.5), 
+  geom_scatterpie(aes(x=Long, y=Lat, group = locality, r = sqrt(Total/10)), 
                   data = final_data, cols = colnames(final_data[,c(2:15)]))
 
 mapplot1
